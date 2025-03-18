@@ -6,6 +6,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 
 from .serializers import RegisterSerializer, LoginSerializer, ProfileSerializer
+from .permissions import CustomReadOnly
 # Create your views here.
 
 # 회원가입을 위한 API 엔드포인트를 만들 때, CreateAPIView를 사용하면 POST 요청만 처리할 수 있도록 제한됨
@@ -33,6 +34,6 @@ from .models import Profile
 class ProfileView(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    
+    permission_classes = [CustomReadOnly]
     
     
