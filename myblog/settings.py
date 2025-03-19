@@ -30,14 +30,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# 토큰 인증 활성화
+
 REST_FRAMEWORK = {
+    # 토큰 인증 활성화
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    # 필터 백엔드 활성화
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
-    ]
+    ],
+    # Pagination 설정
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 15,
 }
 
 # Application definition
