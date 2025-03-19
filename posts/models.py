@@ -14,4 +14,4 @@ class Post(models.Model):
     image = models.ImageField(upload_to='posts/', default='default.jpg')
     likes = models.IntegerField(default=0)
     published_date = models.DateTimeField(default=timezone.now)
-    
+    category = models.CharField(max_length=128, default='default')

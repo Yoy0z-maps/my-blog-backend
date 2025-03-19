@@ -6,11 +6,13 @@ from .permissions import CustomReadOnly
 from users.models import Profile
 from rest_framework.response import Response
 from rest_framework import status
+from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     permission_classes = [CustomReadOnly]
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['author','category']
 
     # def list(self, request, *args, **kwargs):
     #     print(f"🔍 요청된 사용자: {request.user}")  # 사용자 정보 출력
