@@ -9,7 +9,7 @@ from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-published_date')
     permission_classes = [CustomReadOnly]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['author','category']

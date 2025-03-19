@@ -8,7 +8,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "title", "body", "image", "profile", "likes", "published_date", "category")
+        fields = ("id", "title", "body", "image", "profile", "likes", "published_date", "category", "tags")
 # 유저가 직접 입력하는 모델
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
