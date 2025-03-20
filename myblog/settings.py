@@ -99,6 +99,7 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 # DB 설정 변경 (SQLite3 -> PostgreSQL)
 # brew install postgresql
 # brew services start postgresql@14
+# psql -U user_name -h 127.0.0.1
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

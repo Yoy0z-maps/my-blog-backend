@@ -16,3 +16,23 @@ pip install Pillow // File Transfer
 pip install psycopg2-binary // Tag => ArrayField
 pip install psycopg // Tag => ArrayField
 ```
+
+### migrations 에러 해결 예시
+
+django.db.utils.ProgrammingError: column "category" of relation "posts_post" does not exist
+새로운 필드를 추가하였는데 반영이 안됨
+
+#### 1. PostgreSQL에서 해당 필드확인
+
+```
+psql -U johnhan -h 127.0.0.1 -d myblog
+\d posts_post;
+```
+
+#### 2. 자동으로 모델의 새로운 필드를 인식 못한 경우라 수동으로 작업해줘야함
+
+```
+python manage.py makemigrations --empty posts
+```
+
+후에 파일 변경 사항 직접 migration해주기
