@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'users',
     'posts',
     'django_filters',
+    'projects'
 ]
 
 MIDDLEWARE = [
@@ -95,10 +96,17 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DB 설정 변경 (SQLite3 -> PostgreSQL)
+# brew install postgresql
+# brew services start postgresql@14
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myblog',
+        'USER': 'johnhan',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
