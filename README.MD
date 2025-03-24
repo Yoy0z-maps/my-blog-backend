@@ -60,3 +60,10 @@ sudo systemctl enable gunicorn
 # 상태 확인
 sudo systemctl status gunicorn
 ```
+
+### 코드 업데이트 후 (pull)
+
+```
+sudo systemctl restart gunicorn # guinicorn 재시작
+sudo systemctl restart nginx # nginx 설정 바꾸면 역시 재시작
+```
