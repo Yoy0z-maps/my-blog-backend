@@ -2,3 +2,4 @@
 /media
 *.pem
 *.env
+/etc
