@@ -36,3 +36,10 @@ python manage.py makemigrations --empty posts
 ```
 
 후에 파일 변경 사항 직접 migration해주기
+
+### AWS EC2 접근하기
+
+```
+chmod 400 your-key.pem
+ssh -i your-key.pem username@server-i
+```
