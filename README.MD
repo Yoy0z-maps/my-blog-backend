@@ -42,4 +42,21 @@ python manage.py makemigrations --empty posts
 ```
 chmod 400 your-key.pem
 ssh -i your-key.pem username@server-i
+
+# 서버 PostgreSQL 설정
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+# Ngix 및 Gunicorn 설정
+# systemd에 새 서비스 적용
+sudo systemctl daemon-reload
+
+# 서비스 실행
+sudo systemctl start gunicorn
+
+# 부팅 시 자동 시작
+sudo systemctl enable gunicorn
+
+# 상태 확인
+sudo systemctl status gunicorn
 ```
