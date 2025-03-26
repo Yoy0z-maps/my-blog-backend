@@ -23,10 +23,14 @@ class LoginView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         token = serializer.validated_data # validate의 반환 값인 Token을 받아옴
-        return Response({
+        response = Response({
             "token": token.get('token'),
             "uuid": token.get('uuid')
         }, status=status.HTTP_200_OK)
+
+        response.set_cookie(key="token", value=token.get('access'), httponly=True, path="/", samesite='Lax', max_age=60*60*24)
+        response.set_cookie(key="uuid", value=token.get('uuid'), httponly=True, path="/", samesite='Lax', max_age=60*60*24)
+        return response
     
 # 프로필 조회
 from .models import Profile
