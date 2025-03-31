@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Post
 from users.serializers import ProfileSerializer
+import json
 
 # 모델의 모든 필드
 class PostSerializer(serializers.ModelSerializer):
@@ -14,3 +15,13 @@ class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ("title", "body", "image", "tags", "category")
+
+    def validate_tags(self, value):
+        if isinstance(value, str):
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError:
+                raise serializers.ValidationError("Invalid JSON for tags field")
+        if not isinstance(value, list):
+            raise serializers.ValidationError("tags must be a list")
+        return value
