@@ -77,9 +77,15 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://yoy0z-maps.com",
+]
+
+ALLOWED_HOSTS = [
+    'api.yoy0z-maps.com',
     'localhost',
     '127.0.0.1',
-    'api.yoy0z-maps.com',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
