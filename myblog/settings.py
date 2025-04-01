@@ -12,13 +12,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config, Csv
+from decouple import config
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myblog.settings")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_URL = '/media/'
+MEDIA_URL = "https://my-blog-yoy0z-maps-bucket.s3.amazonaws.com/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
@@ -63,7 +67,26 @@ INSTALLED_APPS = [
     'django_filters',
     'projects',
     'corsheaders',
+    'storages',
+    'images'
 ]
+
+# AWS S3 Config
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "access_key": config("AWS_ACCESS_KEY_ID"),
+            "secret_key": config("AWS_SECRET_ACCESS_KEY"),
+            "bucket_name": "my-blog-yoy0z-maps-bucket",
+            "region_name": "ap-southeast-2",
+            "custom_domain": "my-blog-yoy0z-maps-bucket.s3.amazonaws.com",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
