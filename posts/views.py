@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
+from rest_framework import permissions
 
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
