@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
-from rest_framework import permissions
+
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-published_date')
@@ -26,7 +26,7 @@ class PostViewSet(viewsets.ModelViewSet):
     #     return super().list(request, *args, **kwargs)
 
     def get_serializer_class(self):
-        if self.action == 'list' or 'retrieve':
+        if self.action in ['list', 'retrieve']:
             return PostSerializer
         return PostCreateSerializer
     
@@ -41,8 +41,14 @@ class PostViewSet(viewsets.ModelViewSet):
     def like_post(self, request, pk=None):
         try:
             post = self.get_object()
+
+            if post.likes is None:
+                post.likes = 0  # 안전하게 초기화
+
             post.likes += 1
             post.save()
+
             return Response({'message': 'Liked!', 'likes': post.likes}, status=status.HTTP_200_OK)
-        except:
-            return Response({'error': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print("🔥 like_post 에러:", e)  # 로그 찍기
+            return Response({'error': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
