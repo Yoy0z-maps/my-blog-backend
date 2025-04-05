@@ -7,6 +7,8 @@ from users.models import Profile
 from rest_framework.response import Response
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import action
+from rest_framework import permissions
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-published_date')
@@ -34,3 +36,13 @@ class PostViewSet(viewsets.ModelViewSet):
 
         profile = Profile.objects.get(user=self.request.user)
         serializer.save(author=self.request.user, profile=profile)
+
+    @action(detail=True, methods=['post'], url_path='like', permission_classes=[permissions.AllowAny])
+    def like_post(self, request, pk=None):
+        try:
+            post = self.get_object()
+            post.likes += 1
+            post.save()
+            return Response({'message': 'Liked!', 'likes': post.likes}, status=status.HTTP_200_OK)
+        except:
+            return Response({'error': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
