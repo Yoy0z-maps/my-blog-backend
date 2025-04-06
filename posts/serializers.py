@@ -9,12 +9,12 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "title", "body", "image", "profile", "likes", "published_date", "category", "tags")
+        fields = ("id", "title", "body", "image", "profile", "likes", "published_date", "category", "tags", "summary")
 # 유저가 직접 입력하는 모델
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ("title", "body", "image", "tags", "category")
+        fields = ("title", "body", "image", "tags", "category", "summary")
 
     def validate_tags(self, value):
         if isinstance(value, str):

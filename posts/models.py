@@ -12,6 +12,7 @@ class Post(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
     tags = ArrayField(models.CharField(max_length=128))
+    summary = models.TextField(null=True, blank=True)
     body = models.TextField() # Json을 Stringfy 할 거임 => 실제로는 TipTapEditor Json Object가 Stringfy됨
     image = models.ImageField(upload_to='posts/', default='default.jpg')
     likes = models.IntegerField(default=0)
