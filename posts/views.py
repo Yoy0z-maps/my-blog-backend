@@ -65,5 +65,5 @@ class CommentViewSet(viewsets.ModelViewSet):
         return CommentCreateSerializer
     
     def perform_create(self, serializer):
-        serializer.save(post=self.get_object())
+        serializer.save()
         
