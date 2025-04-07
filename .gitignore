@@ -3,3 +3,7 @@
 *.pem
 *.env
 /etc
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
