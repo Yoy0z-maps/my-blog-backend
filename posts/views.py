@@ -9,6 +9,8 @@ from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework import permissions
+from .models import Comment
+from .serializers import CommentSerializer, CommentCreateSerializer
 
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
@@ -32,8 +34,8 @@ class PostViewSet(viewsets.ModelViewSet):
         return PostCreateSerializer
     
     def perform_create(self, serializer):
-        print(f"🔍 요청된 사용자: {self.request.user}")  # 디버깅
-        print(f"🔍 사용자 인증 여부: {self.request.user.is_authenticated}")  # 인증 상태 확인
+        print(f"🔍 요청된 사용자: {self.request.user}") 
+        print(f"🔍 사용자 인증 여부: {self.request.user.is_authenticated}") 
 
         profile = Profile.objects.get(user=self.request.user)
         serializer.save(author=self.request.user, profile=profile)
@@ -44,12 +46,24 @@ class PostViewSet(viewsets.ModelViewSet):
             post = self.get_object()
 
             if post.likes is None:
-                post.likes = 0  # 안전하게 초기화
+                post.likes = 0
 
             post.likes += 1
             post.save()
 
             return Response({'message': 'Liked!', 'likes': post.likes}, status=status.HTTP_200_OK)
         except Exception as e:
-            print("🔥 like_post 에러:", e)  # 로그 찍기
+            print("🔥 like_post 에러:", e)
             return Response({'error': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in 'list' or 'retrieve':
+            return CommentSerializer
+        return CommentCreateSerializer
+    
+    def perform_create(self, serializer):
+        serializer.save(post=self.get_object())
+        
