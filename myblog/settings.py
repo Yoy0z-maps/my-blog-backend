@@ -18,6 +18,8 @@ if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myblog.settings")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
