@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_URL = "https://my-blog-yoy0z-maps-bucket.s3.amazonaws.com/"
+MEDIA_URL = "https://yoy0z-maps-blog-bucket.s3.amazonaws.com/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
@@ -78,9 +78,9 @@ STORAGES = {
         "OPTIONS": {
             "access_key": config("AWS_ACCESS_KEY_ID"),
             "secret_key": config("AWS_SECRET_ACCESS_KEY"),
-            "bucket_name": "my-blog-yoy0z-maps-bucket",
-            "region_name": "ap-southeast-2",
-            "custom_domain": "my-blog-yoy0z-maps-bucket.s3.amazonaws.com",
+            "bucket_name": "yoy0z-maps-blog-bucket",
+            "region_name": "ap-northeast-2",
+            "custom_domain": "yoy0z-maps-blog-bucket.s3.ap-northeast-2.amazonaws.com",
         },
     },
     "staticfiles": {
