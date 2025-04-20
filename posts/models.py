@@ -18,6 +18,7 @@ class Post(models.Model):
     likes = models.IntegerField(default=0)
     published_date = models.DateTimeField(default=timezone.now)
     category = models.CharField(max_length=128, default='default')
+    views = models.PositiveIntegerField(default=0)
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

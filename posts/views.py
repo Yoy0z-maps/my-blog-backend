@@ -40,6 +40,18 @@ class PostViewSet(viewsets.ModelViewSet):
         profile = Profile.objects.get(user=self.request.user)
         serializer.save(author=self.request.user, profile=profile)
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        session_key = f"viewed_post_{instance.pk}"
+        if not request.session.get(session_key):
+            instance.views += 1
+            instance.save(update_fields=["views"])
+            request.session[session_key] = True
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
     @action(detail=True, methods=['post'], url_path='like', permission_classes=[permissions.AllowAny])
     def like_post(self, request, pk=None):
         try:
