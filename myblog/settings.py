@@ -22,10 +22,11 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = "https://yoy0z-maps-blog-bucket.s3.ap-northeast-2.amazonaws.com/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -36,8 +37,7 @@ SECRET_KEY = 'django-insecure-vv8gc1v+m2oy#k*tu-j9mw_20dz@1^44*kgvl0$rgx1m%!5=i6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['3.106.169.8', '127.0.0.1', 'localhost']
-
+ALLOWED_HOSTS = ['3.34.149.206', '127.0.0.1', 'localhost', 'api.yoy0z-maps.com']
 
 REST_FRAMEWORK = {
     # 토큰 인증 활성화
@@ -106,12 +106,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "https://yoy0z-maps.com",
     "https://www.yoy0z-maps.com"
-]
-
-ALLOWED_HOSTS = [
-    'api.yoy0z-maps.com',
-    'localhost',
-    '127.0.0.1',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -187,12 +181,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
