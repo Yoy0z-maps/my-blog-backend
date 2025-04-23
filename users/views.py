@@ -28,8 +28,8 @@ class LoginView(generics.GenericAPIView):
             "uuid": token.get('uuid')
         }, status=status.HTTP_200_OK)
 
-        response.set_cookie(key="token", value=token.get('token'), httponly=True, path="/", secure=True, samesite='Lax', max_age=60*60*24)
-        response.set_cookie(key="uuid", value=token.get('uuid'), httponly=True, path="/", secure=True, samesite='Lax', max_age=60*60*24)
+        response.set_cookie(key="token", value=token.get('token'), httponly=True, path="/", secure=True, samesite='Lax', domain=".yoy0z-maps.com", max_age=60*60*24)
+        response.set_cookie(key="uuid", value=token.get('uuid'), httponly=True, path="/", secure=True, samesite='Lax', domain=".yoy0z-maps.com", max_age=60*60*24)
         return response
     
 # 프로필 조회
