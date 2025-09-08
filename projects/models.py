@@ -14,7 +14,16 @@ class Project(models.Model):
     thumbnail_image = models.ImageField(upload_to='projects/', default='default.jpg')
     title = models.TextField() # Json을 Stringfy 할 거임 => {ko: "", en: ""}
     content = models.TextField() # Json을 Stringfy 할 거임 => {ko: "", en: ""}
-    link = models.URLField(max_length=200)
+    github_link = models.URLField(max_length=200, null=True, blank=True)
+    figma_link = models.URLField(max_length=200, null=True, blank=True)
+    appstore_link = models.URLField(max_length=200, null=True, blank=True)
+    playstore_link = models.URLField(max_length=200, null=True, blank=True)
+    web_link = models.URLField(max_length=200, null=True, blank=True)
+    project_date = models.DateField(null=True, blank=True)
     tags = ArrayField(models.CharField(max_length=128))
 
     
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='projects/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
